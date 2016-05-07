@@ -1,0 +1,80 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring4-3.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Demonstrates Multi User Log In</title>
+    <link rel="stylesheet" th:href="@{/bootstrap.min.css}"/>
+    <style type="text/css">
+        body {
+            padding: 1em;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+
+
+    <div th:replace="fragments/header :: header">...</div>
+
+
+
+    <h1>Description</h1>
+
+    <p>This application demonstrates how to use Spring Session to authenticate as multiple users at a time. View
+        authenticated users in the upper right corner.</p>
+
+    <!--    <c:choose>-->
+    <spaN th:text="${username == null}">si null </spaN>
+
+        <span th:if="${username} == null">
+            <h1>Please Log In</h1>
+            <p>You are not currently authenticated with this session. You can authenticate with any username password
+                combination that are equal. A few examples to try:</p>
+            <ul>
+                <li><b>Username</b> rob and <b>Password</b> rob</li>
+                <li><b>Username</b> luke and <b>Password</b> luke</li>
+            </ul>
+            <span th:if="${param.error != null}">
+                <div id="error" class="alert alert-danger">Invalid username / password. Please ensure the username is
+                    the same as the password.
+                </div>
+            </span>
+            <!--<c:url value="/login" var="loginUrl"/>-->
+            <form th:action="@{/login}" method="post">
+                <div class="form-group">
+                    <label for="username">Username</label>
+                    <input id="username" type="text" name="username"/>
+                </div>
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input id="password" type="password" name="password"/>
+                </div>
+                <input type="submit" value="Login"/>
+            </form>
+        </span>
+
+         <span th:if="${username != null}">
+            <h1 id="un"><span th:text="${username}"> username </span></h1>
+            <p>You are authenticated as <b><span th:text="${username}"/></b>.
+                Observe that you can <a th:href="@{/link}">navigate links</a> and the correct session is used. Using the
+                links in the upper right corner you can:</p>
+            <ul>
+                <li>Log Out</li>
+                <li>Switch Accounts</li>
+                <li>Add Account</li>
+            </ul>
+        </span>
+    <!--    </c:choose>-->
+</div>
+<!-- Bootstrap core JavaScript
+================================================== -->
+<!-- Placed at the end of the document so the pages load faster -->
+<script th:src="@{/jquery.min.js}"></script>
+<script th:src="@{/bootstrap.min.js}"></script>
+<!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+<script th:src="@{/ie10-viewport-bug-workaround.js}"></script>
+
+
+</body>
+</html>
